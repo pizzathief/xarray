@@ -5,6 +5,7 @@ from collections.abc import Hashable, Iterable, Mapping
 from typing import TYPE_CHECKING, Any, Generic, TypeVar
 
 import numpy as np
+import sys
 
 from xarray.core.dataarray import DataArray
 from xarray.core.indexes import Index
@@ -13,9 +14,13 @@ from xarray.core.utils import is_scalar
 from xarray.core.variable import Variable
 from xarray.structure.alignment import broadcast
 
-if TYPE_CHECKING:
+try:
     from scipy.spatial import KDTree
+except ModuleNotFoundError as e:
+    print("to use NDPointIndex please install scipy")
+    sys.exit()
 
+if TYPE_CHECKING:
     from xarray.core.types import Self
 
 
